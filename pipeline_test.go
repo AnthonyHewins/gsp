@@ -6,16 +6,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/airspace-link-inc/airhub-go/core/h3geo"
 	"github.com/airspace-link-inc/airhub-go/core/model"
-	"github.com/airspace-link-inc/airhub-go/core/util"
 	"github.com/stretchr/testify/assert"
-	"github.com/uber/h3-go/v3"
+	"github.com/uber/h3-go"
 )
 
 type asyncTestArgs struct {
 	E       Pipeline
-	Pipe    chan h3geo.D
+	Pipe    chan any
 	ErrChan chan error
 	Done    chan struct{}
 }

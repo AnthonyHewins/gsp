@@ -10,7 +10,7 @@ type Pipeline[In any, Out any, PipelineArgs sync.Locker] struct {
 	Store   PipelineArgs
 }
 
-func (e Pipeline[In, Out, X]) Async(ctx context.Context, pipe chan<- Out, errChan chan<- error, done chan<- struct{}, input chan<- In) {
+func (e Pipeline[In, Out, X]) Async(ctx context.Context, pipe chan<- Out, errChan chan<- error, done chan<- struct{}, input <-chan In) {
 	defer close(errChan) // Order matters!
 	defer close(pipe)
 	defer close(done)

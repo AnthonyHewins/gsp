@@ -19,7 +19,7 @@ type Worker[Out any, Argument sync.Locker] interface {
 
 // SynchronousBucket is the simplest implementation of a bucket worker that gets everything it
 // needs synchronously
-type Synchronous[X any] struct {
+type Synchronous[X any, Out any] struct {
 	Store X
 	Fn    func(ctx context.Context, s *semaphore, rows ...model.Metadata) ([]h3geo.D, error)
 	B4    func(store *X, s *semaphore)
