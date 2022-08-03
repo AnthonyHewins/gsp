@@ -11,7 +11,7 @@ import (
 type SynchronousWithStore[ArgType any, Store any] struct {
 	Store Store
 	B4    func(ArgType, *SynchronousWithStore[ArgType, Store])
-	Fn    func(context.Context, chan<- Atom, chan<- error, ArgType, *SynchronousWithStore[ArgType, Store]) (Atom, error)
+	Fn    func(context.Context, chan<- Atom, chan<- error, ArgType, *Store) (Atom, error)
 }
 
 func (s *SynchronousWithStore[ArgType, X]) Before(sem ArgType) {
@@ -23,7 +23,7 @@ func (s *SynchronousWithStore[ArgType, X]) Before(sem ArgType) {
 func (s *SynchronousWithStore[ArgType, X]) Fetch(ctx context.Context, pipe chan<- Atom, errChan chan<- error, wg *sync.WaitGroup, sem ArgType) {
 	defer wg.Done()
 
-	resp, err := s.Fn(ctx, pipe, errChan, sem, s)
+	resp, err := s.Fn(ctx, pipe, errChan, sem, &s.Store)
 	if err != nil {
 		select {
 		case <-ctx.Done():
