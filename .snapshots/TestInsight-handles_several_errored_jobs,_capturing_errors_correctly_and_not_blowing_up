@@ -1,0 +1,7 @@
+(*pipeline.mockInsight)({
+  F: (int) 0,
+  J: (int) 0
+})
+(*errors.errorString)({
+  s: (string) (len=5) "error"
+})

@@ -11,7 +11,7 @@ fmt: ## Run gofmt
 	find *.go -type f -exec gofmt -w -s {} \;
 
 test: ## Run go vet, and test the whole repo
-	go vet -v
+	go vet ./...
 	go test ./...
 
 clean: fmt # gofmt, then tidy modules, delete the bin folder, and clean go's cache

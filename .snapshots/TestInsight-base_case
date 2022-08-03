@@ -1,0 +1,5 @@
+(*pipeline.mockInsight)({
+  F: (int) 0,
+  J: (int) 0
+})
+(interface {}) <nil>
