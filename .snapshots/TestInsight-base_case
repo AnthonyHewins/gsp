@@ -1,4 +1,4 @@
-(*pipeline.mockInsight)({
+(*gsp.mockInsight)({
   F: (int) 0,
   J: (int) 0
 })

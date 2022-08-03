@@ -3,14 +3,16 @@ package gsp
 import "testing"
 
 func TestSyncWithStore(t *testing.T) {
+	correct := 101293
+
 	mockStore := SynchronousWithStore[struct{}, int]{
-		B4: func(s struct{}, sws *SynchronousWithStore[struct{}, int]) {
-			sws.Store = 1488
+		B4: func(s struct{}, sws *int) {
+			*sws = correct
 		},
 	}
 
-	mockStore.B4(struct{}{}, &mockStore)
-	if mockStore.Store != 1488 {
-		t.Errorf("b4 should have set synchronousWithStore.store to 1488, got %v", mockStore.Store)
+	mockStore.B4(struct{}{}, &mockStore.Store)
+	if mockStore.Store != correct {
+		t.Errorf("b4 should have set synchronousWithStore.store to %v, got %v", correct, mockStore.Store)
 	}
 }

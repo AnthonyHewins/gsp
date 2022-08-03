@@ -2,6 +2,8 @@
 
 .DEFAULT: help
 
+test := ENV=test go test ./...
+
 targets := cli
 
 $(targets):
@@ -10,9 +12,12 @@ $(targets):
 fmt: ## Run gofmt
 	find *.go -type f -exec gofmt -w -s {} \;
 
+update-snapshots: ## Run go vet, and test the whole repo
+	UPDATE_SNAPSHOTS=true $(test)
+
 test: ## Run go vet, and test the whole repo
 	go vet ./...
-	go test ./...
+	$(test)
 
 clean: fmt # gofmt, then tidy modules, delete the bin folder, and clean go's cache
 	go mod tidy

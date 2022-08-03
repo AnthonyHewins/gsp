@@ -18,6 +18,10 @@ func Async[ArgType any](ctx context.Context, pipe chan<- Atom, errChan chan<- er
 		return
 	}
 
+	for _, v := range jobs {
+		v.Before(arg)
+	}
+
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
