@@ -10,13 +10,13 @@ import (
 // all its data at once
 type SynchronousWithStore[ArgType any, Store any] struct {
 	Store Store
-	B4    func(ArgType, *SynchronousWithStore[ArgType, Store])
+	B4    func(ArgType, *Store)
 	Fn    func(context.Context, chan<- Atom, chan<- error, ArgType, *Store) (Atom, error)
 }
 
 func (s *SynchronousWithStore[ArgType, X]) Before(sem ArgType) {
 	if s.B4 != nil {
-		s.B4(sem, s)
+		s.B4(sem, &s.Store)
 	}
 }
 
